@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Pexis</string>
+
+    <!-- Destinations -->
+    <string name="home_screen">Home</string>
+    <string name="search_screen">Search</string>,
+    <string name="collections_screen">Collections</string>
+
+    <!-- Home -->
+    <string name="home">Pexis - Home</string>
+</resources>
