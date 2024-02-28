@@ -2,13 +2,13 @@ package com.maxidev.pexis.data.repository.datasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.maxidev.pexis.data.remote.PexisApiService
 import com.maxidev.pexis.data.remote.model.photo_search.Photo
+import com.maxidev.pexis.data.repository.impl.PhotosRepositoryImpl
 import retrofit2.HttpException
 import java.io.IOException
 
 class SearchPhotoPagingSource(
-    private val backend: PexisApiService,
+    private val backend: PhotosRepositoryImpl,
     private val query: String
 ): PagingSource<Int, Photo>() {
 
@@ -26,7 +26,7 @@ class SearchPhotoPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
         return try {
             val nextPage = params.key ?: PAGE_NUMBER
-            val response = backend.getSearchPhotos(
+            val response = backend.getSearchedPhotos(
                 query = query,
                 perPage = params.loadSize,
                 page = nextPage

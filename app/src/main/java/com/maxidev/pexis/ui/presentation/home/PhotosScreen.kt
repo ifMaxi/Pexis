@@ -19,7 +19,7 @@ fun PhotosScreen(
     viewModel: PhotosCuratedViewModel = hiltViewModel(),
     onNavigate: () -> Unit
 ) {
-    val pagerPhoto: LazyPagingItems<Photo> = viewModel.getImage().collectAsLazyPagingItems()
+    val pagerPhoto: LazyPagingItems<Photo> = viewModel.flowImage.collectAsLazyPagingItems()
 
     Scaffold(
         topBar = {

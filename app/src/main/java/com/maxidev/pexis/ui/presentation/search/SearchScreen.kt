@@ -59,7 +59,7 @@ fun SearchScreen(
                                 active = false
                             } else {
                                 active = false
-                                viewModel.getSearchedImages(it)
+                                viewModel.flowSearch(it)
                             }
                         }
                     },
@@ -83,7 +83,7 @@ fun SearchScreen(
                             modifier = Modifier
                                 .clickable {
                                     query = item
-                                    viewModel.getSearchedImages(item)
+                                    viewModel.flowSearch(item)
                                     active = false
                                 },
                             headlineContent = {

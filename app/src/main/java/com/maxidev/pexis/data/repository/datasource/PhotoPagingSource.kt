@@ -2,13 +2,13 @@ package com.maxidev.pexis.data.repository.datasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.maxidev.pexis.data.remote.PexisApiService
 import com.maxidev.pexis.data.remote.model.photo_search.Photo
+import com.maxidev.pexis.data.repository.impl.PhotosRepositoryImpl
 import retrofit2.HttpException
 import java.io.IOException
 
 class PhotoPagingSource(
-    private val backend: PexisApiService
+    private val backend: PhotosRepositoryImpl
 ): PagingSource<Int, Photo>() {
 
     companion object {

@@ -1,11 +1,10 @@
 package com.maxidev.pexis.data.repository
 
-import androidx.paging.PagingData
-import com.maxidev.pexis.data.remote.model.photo_search.Photo
-import kotlinx.coroutines.flow.Flow
+import com.maxidev.pexis.data.remote.model.photo_search.Photos
+import com.maxidev.pexis.data.remote.model.photo_search.SearchPhoto
 
 interface PhotosRepository {
-    fun getCuratedPhotos(perPage: Int, page: Int): Flow<PagingData<Photo>>
+    suspend fun getCuratedPhotos(perPage: Int, page: Int): Photos
 
-    fun getSearchedPhotos(query: String, perPage: Int, page: Int): Flow<PagingData<Photo>>
+    suspend fun getSearchedPhotos(query: String, perPage: Int, page: Int): SearchPhoto
 }

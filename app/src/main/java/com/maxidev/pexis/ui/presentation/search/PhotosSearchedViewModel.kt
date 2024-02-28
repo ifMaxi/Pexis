@@ -5,12 +5,17 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.maxidev.pexis.data.remote.model.photo_search.Photo
+import com.maxidev.pexis.data.repository.datasource.SearchPhotoPagingSource
 import com.maxidev.pexis.data.repository.impl.PhotosRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,16 +34,32 @@ class PhotosSearchedViewModel @Inject constructor(
     private val _searchedImage = MutableStateFlow<PagingData<Photo>>(PagingData.empty())
     val searchedImage = _searchedImage
 
-    fun getSearchedImages(query :String) {
-        viewModelScope.launch {
-            repository.getSearchedPhotos(
-                query = query,
-                perPage = 1,
-                page = 1
-            ).cachedIn(viewModelScope)
-                .collect {
-                    _searchedImage.value = it
-                }
+    fun flowSearch(query: String) = viewModelScope.launch {
+    Pager(
+        config = PagingConfig(
+            pageSize = 1,
+            enablePlaceholders = false,
+            prefetchDistance = 1
+        ),
+        pagingSourceFactory = {
+            SearchPhotoPagingSource(
+                backend = repository,
+                query = query
+            )
         }
+    ).flow
+        .cachedIn(viewModelScope)
+        .map {
+            val filteredImg = mutableSetOf<Int>()
+
+            it.filter { img ->
+                if (filteredImg.contains(img.id)) {
+                    false
+                } else {
+                    filteredImg.add(img.id)
+                }
+            }
+        }
+        .collect { _searchedImage.value = it }
     }
 }
