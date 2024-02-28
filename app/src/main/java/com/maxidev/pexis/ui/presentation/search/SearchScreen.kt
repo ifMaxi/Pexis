@@ -1,9 +1,10 @@
 package com.maxidev.pexis.ui.presentation.search
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.DockedSearchBar
@@ -25,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.maxidev.pexis.ui.presentation.components.ListContent
-import com.maxidev.pexis.ui.presentation.components.PexelsPhotoProviderComponent
 import com.maxidev.pexis.ui.theme.poppinsFamily
 import com.maxidev.pexis.utils.FakeHistorySearch.fakeHistorySearch
 import kotlinx.coroutines.launch
@@ -42,13 +42,14 @@ fun SearchScreen(
 
     Scaffold(
         topBar = {
-            Column(
+            Box(
                 modifier = Modifier
+                    .wrapContentHeight()
                     .fillMaxWidth()
             ) {
                 DockedSearchBar(
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
+                        .align(Alignment.TopCenter)
                         .padding(4.dp),
                     query = query,
                     onQueryChange = viewModel::onSearchChange,
@@ -95,8 +96,6 @@ fun SearchScreen(
                         HorizontalDivider()
                     }
                 }
-
-                PexelsPhotoProviderComponent()
             }
         }
     ) { paddingValues ->

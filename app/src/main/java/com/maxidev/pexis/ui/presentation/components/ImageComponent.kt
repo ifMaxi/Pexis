@@ -18,12 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import com.maxidev.pexis.ui.presentation.components.CoilImage
 import com.maxidev.pexis.ui.theme.poppinsFamily
 
 @Composable
@@ -39,6 +42,22 @@ fun ImageComponent(
         Intent.ACTION_VIEW,
         Uri.parse(url)
     )
+    val buildString = buildAnnotatedString {
+        withStyle(
+            SpanStyle(
+                fontWeight = FontWeight.Light,
+                fontSize = 14.sp
+            )
+        ) { append("Photo taken by") }
+        append(" ")
+        withStyle(
+            SpanStyle(
+                fontWeight = FontWeight.Medium,
+                textDecoration = TextDecoration.Underline,
+                fontSize = 14.sp
+            )
+        ) { append(photographer) }
+    }
 
     ElevatedCard(
         modifier = modifier
@@ -73,11 +92,9 @@ fun ImageComponent(
                 modifier = Modifier
                     .padding(4.dp)
                     .align(Alignment.CenterHorizontally),
-                text = "Photo taken by $photographer",
+                text = buildString,
                 textAlign = TextAlign.Center,
-                fontFamily = poppinsFamily,
-                fontWeight = FontWeight.Light,
-                fontSize = 13.sp
+                fontFamily = poppinsFamily
             )
         }
     }

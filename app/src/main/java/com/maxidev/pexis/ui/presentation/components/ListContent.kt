@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -24,9 +23,9 @@ fun ListContent(
     photos: LazyPagingItems<Photo>
 ) {
     val state: LazyStaggeredGridState = rememberLazyStaggeredGridState()
-    val photosRemember: LazyPagingItems<Photo> = remember { photos }
+    //val photosRemember: LazyPagingItems<Photo> = remember { photos }
 
-    if (photosRemember.loadState.refresh is LoadState.Loading) {
+    if (photos.loadState.refresh is LoadState.Loading) {
         PexisStatus(animation = R.raw.loading_image)
     }
 
@@ -40,11 +39,11 @@ fun ListContent(
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(
-            count = photosRemember.itemCount,
-            key = photosRemember.itemKey { it.id },
-            contentType = photosRemember.itemContentType { it.id }
+            count = photos.itemCount,
+            key = photos.itemKey { it.id },
+            contentType = photos.itemContentType { it.id }
         ) { pexelImage ->
-            photosRemember[pexelImage]?.let {
+            photos[pexelImage]?.let {
                 ImageComponent(
                     image = it.src.original,
                     url = it.url,
@@ -54,7 +53,7 @@ fun ListContent(
         }
     }
 
-    if (photosRemember.loadState.refresh is LoadState.Error) {
+    if (photos.loadState.refresh is LoadState.Error) {
         PexisStatus(animation = R.raw.image_error)
     }
 }

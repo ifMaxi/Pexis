@@ -17,9 +17,8 @@ fun CoilImage(
         .data(image)
         .crossfade(true)
         .memoryCachePolicy(CachePolicy.ENABLED)
-        //.diskCachePolicy(CachePolicy.ENABLED)
+        .diskCachePolicy(CachePolicy.ENABLED)
         .build()
-
 
     AsyncImage(
         model = imageRequest,

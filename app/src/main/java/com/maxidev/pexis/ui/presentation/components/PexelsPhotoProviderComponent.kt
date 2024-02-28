@@ -17,7 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
@@ -34,6 +38,15 @@ fun PexelsPhotoProviderComponent(
         Intent.ACTION_VIEW,
         Uri.parse(PROVIDER_URL)
     )
+    val buildString = buildAnnotatedString {
+        withStyle(
+            SpanStyle(
+                fontWeight = FontWeight.Light,
+                fontSize = 14.sp,
+                textDecoration = TextDecoration.Underline
+            )
+        ) { append("Photos provided by Pexels") }
+    }
 
     Row(
         modifier = modifier
@@ -57,10 +70,8 @@ fun PexelsPhotoProviderComponent(
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = "Photos provided by Pexels",
-            fontFamily = poppinsFamily,
-            fontWeight = FontWeight.Light,
-            fontSize = 14.sp
+            text = buildString,
+            fontFamily = poppinsFamily
         )
     }
 }
