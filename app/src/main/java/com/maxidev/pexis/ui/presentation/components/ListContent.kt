@@ -1,5 +1,6 @@
 package com.maxidev.pexis.ui.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -16,6 +18,7 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.maxidev.pexis.R
 import com.maxidev.pexis.data.remote.model.photo_search.Photo
+import com.maxidev.pexis.ui.theme.gradientBackground
 
 @Composable
 fun ListContent(
@@ -23,7 +26,6 @@ fun ListContent(
     photos: LazyPagingItems<Photo>
 ) {
     val state: LazyStaggeredGridState = rememberLazyStaggeredGridState()
-    //val photosRemember: LazyPagingItems<Photo> = remember { photos }
 
     if (photos.loadState.refresh is LoadState.Loading) {
         PexisStatus(animation = R.raw.loading_image)
@@ -31,7 +33,8 @@ fun ListContent(
 
     LazyVerticalStaggeredGrid(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(brush = Brush.verticalGradient(gradientBackground)),
         columns = StaggeredGridCells.Fixed(2),
         state = state,
         contentPadding = PaddingValues(4.dp),

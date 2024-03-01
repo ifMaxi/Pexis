@@ -1,7 +1,5 @@
 package com.maxidev.pexis.ui.presentation.home
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -23,15 +21,10 @@ fun PhotosScreen(
 
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                HomeTopBar(
-                    title = R.string.home,
-                    onAction = onNavigate
-                )
-            }
+            HomeTopBar(
+                title = R.string.home,
+                onAction = onNavigate
+            )
         }
     ) { paddingValues ->
         ListContent(
