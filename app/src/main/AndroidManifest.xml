@@ -13,13 +13,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Pexis"
-        tools:targetApi="31">
+        android:theme="@style/Theme.SplashScreen.Starting"
+        tools:targetApi="33">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Pexis">
+            android:theme="@style/Theme.SplashScreen.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
